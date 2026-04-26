@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
-require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const googleRoutes = require("./routes/google");
@@ -18,7 +18,10 @@ app.set("trust proxy", 1);
 
 // ── Middleware ──────────────────────────────────────────
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: [
+    'http://localhost:5173',
+    process.env.CLIENT_URL
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
